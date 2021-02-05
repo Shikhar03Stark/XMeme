@@ -1,0 +1,12 @@
+{
+  "name": "xmeme-server",
+  "version": "1.0.0",
+  "description": "XMeme Server ",
+  "main": "server.js",
+  "scripts": {
+    "start" : "node server.js",
+    "debug" : "nodemon ."
+  },
+  "author": "Harshit Vishwakarma",
+  "license": "ISC"
+}
