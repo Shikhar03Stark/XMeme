@@ -1,0 +1,7 @@
+.Header-enclosure{
+    background-color: #809CFF;
+    height: 128px;
+    display: flex;
+    align-content: center;
+    flex-direction: row;
+}

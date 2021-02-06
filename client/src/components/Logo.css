@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+.Logo{
+    display: flex;
+    align-items: center;
+    float: 1;
+}
+
+.Logo-logo{
+    font-family: 'Quicksand', sans-serif;
+    font-size: 48px;
+    padding: 10px;
+    padding-left: 40px;
+    color: white;
+}
