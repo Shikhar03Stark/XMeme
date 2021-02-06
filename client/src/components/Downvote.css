@@ -1,0 +1,18 @@
+.Downvote-container{
+    background-color: white;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.Downvote-icon{
+    display: table;
+}
+
+.Downvote-iconData{
+    color: #FF783F;
+    display: table-cell;
+    vertical-align: middle;
+}

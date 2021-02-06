@@ -1,0 +1,13 @@
+
+.Posts-container{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.Posts-scroll{
+    padding: 10px;
+    overflow-y: auto;
+}

@@ -1,0 +1,18 @@
+.Upvote-container{
+    background-color: white;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.Upvote-icon{
+    display: table;
+}
+
+.Upvote-iconData{
+    display: table-cell;
+    vertical-align: middle;
+    color: #809CFF;
+}
