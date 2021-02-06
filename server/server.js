@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+const cors = require('cors');
 
 //port number based on .env or 8081
 const port = process.env.PORT ?? 8081;
@@ -18,9 +18,11 @@ dbHandle.once('open', () => {
 //Setup Middlewares
 //static files
 app.use('/static', express.static('public'));
-//bodyparser json only
+//bodyparser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
+//setup CORS
+app.use(cors());
 
 //debug home url
 app.get('/', (req, res) => {
