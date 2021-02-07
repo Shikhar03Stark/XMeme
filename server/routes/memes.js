@@ -116,6 +116,12 @@ router.post('/', (req, res) => {
             //return id of new Post
             const result = {
                 id: post.id,
+                success : true,
+                //flash
+                flash : {
+                    type : 'success',
+                    message : 'Meme posted successfully'
+                }
             }
 
             res.status(200).json(result);
