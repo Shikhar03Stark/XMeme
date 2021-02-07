@@ -5,6 +5,8 @@ const Posts = () => {
         <div className="Posts-container">
             <Post />
             <Post />
+            <Post />
+            <Post />
         </div>
     )
 }

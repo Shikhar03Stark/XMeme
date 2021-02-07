@@ -1,5 +1,56 @@
 
 .Form-container{
-    position: static;
-    z-index: 1;
+    top: 10px;
+    margin: 15px;
+    position: sticky;
+    background-color: white;
+    height: 580px;
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.20);
+    margin-top: 2px;
+    margin-bottom: 10px;
+}
+
+.Form-heading{
+    color: #809CFF;
+    font-size: 32px;
+    padding: 8px;
+    height: 40px;
+    vertical-align: middle;
+}
+
+.Form-body{
+    padding: 10px;
+    height: 380px;
+}
+
+div[name="owner"]{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+div[name="caption"]{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+div[name="url"]{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.Form-preview {
+    display: flex;
+    justify-content: center;
+    height: 320px;
+}
+
+.Form-preview > div {
+    width: 320px;
+    background-color: rgb(226, 226, 226);
+}
+
+.Form-button{
+    margin-top: 15px;
+    background-color: #809CFF;
+    color: white;
+    font-size: 24px;
+    border-radius: 5px;
 }
