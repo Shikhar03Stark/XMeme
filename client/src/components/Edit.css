@@ -1,4 +1,4 @@
-.Downvote-container{
+.Edit-container{
     background-color: white;
     flex: 1;
     display: flex;
@@ -7,11 +7,11 @@
     flex-grow: 1;
 }
 
-.Downvote-icon{
+.Edit-icon{
     display: table;
 }
 
-.Downvote-iconData{
+.Edit-iconData{
     color: #FF783F;
     display: table-cell;
     vertical-align: middle;

@@ -73,3 +73,29 @@
     display: flex;
     height: 60px;
 }
+
+.Post-editBody{
+    height: 360px;
+    margin: 1px;
+}
+
+.Post-editData {
+    margin: 10px;
+}
+
+.Post-editBody > span > input {
+    width: 200px;
+    padding: 2px;
+}
+
+.Post-preview{
+    padding: 10px;
+}
+
+.Post-update{
+    margin-top: 15px;
+    background-color: #809CFF;
+    color: white;
+    font-size: 12px;
+    border-radius: 5px;
+}

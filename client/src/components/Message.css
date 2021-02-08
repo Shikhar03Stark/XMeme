@@ -1,0 +1,26 @@
+
+.Message-body {
+    display: none;
+    justify-content: center;
+    height: 40px;
+    align-items: center;
+}
+
+.success {
+    background-color: rgb(219, 255, 164);
+    border-radius: 5px;
+}
+
+.warning {
+    background-color: rgb(253, 255, 124);
+    border-radius: 5px;
+}
+
+.danger {
+    background-color: rgb(255, 170, 124);
+    border-radius: 5px;
+}
+
+.Message-message{
+    width: 200px;
+}
