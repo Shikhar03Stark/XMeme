@@ -18,11 +18,11 @@ dbHandle.once('open', () => {
 //Setup Middlewares
 //static files
 app.use('/static', express.static('public'));
-//bodyparser
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
 //setup CORS
 app.use(cors());
+//bodyparser
+app.use(express.urlencoded({extended:true}));
+app.use(express.json());
 
 //debug home url
 app.get('/', (req, res) => {
@@ -45,7 +45,7 @@ app.get('/', (req, res) => {
 app.use('/memes', require('./routes/memes'));
 
 
-//404 page
+//404 page middleware exit
 app.use((req, res) => {
     const json = {
         success: false,
@@ -53,7 +53,7 @@ app.use((req, res) => {
         //no flash message required
     }
 
-    res.status(404).json(json);
+    return res.status(404).json(json);
 })
 
 app.listen(port, () => {

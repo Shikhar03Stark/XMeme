@@ -63,9 +63,31 @@ router.post('/', (req, res) => {
     url = req.body.url ?? undefined,
     caption = req.body.caption ?? undefined;
 
+    console.log(req.body);
+
     //error handling
     //check if fields are null
     if(typeof name === 'undefined' || typeof url === 'undefined' || typeof caption === 'undefined'){
+        //all field are mandatory
+        const result = {
+            success : false,
+            error : 'All Fields are Mandatory',
+            //flash message
+            flash : { 
+                type : 'danger',
+                message : 'Please fill out all * marked fields'
+            },
+            //return prefilled fields
+            name,
+            url,
+            caption,
+        }
+
+        //client framing error 400
+        return res.status(400).json(result);
+    }
+    //if defined by empty string
+    else if(name.length === 0 || url.length === 0 || caption.length === 0){
         //all field are mandatory
         const result = {
             success : false,
@@ -139,6 +161,52 @@ router.post('/', (req, res) => {
         })
     }
 
+})
+
+router.get('/:id', (req, res) => {
+    const memeId = req.params.id;
+
+    //find in DB
+    Post.findOne({'id':memeId}, (err, post) => {
+        if(err){
+            //Internal Server Error
+            const result = {
+                success : false,
+                error : "Internal Server Error.",
+                flash : {
+                    type : 'danger',
+                    message : 'Error Connecting to Database',
+                }
+            }
+            return res.status(500).json(result);
+        }
+        else{
+            if(post){
+                //post found
+                let result = post.toObject();
+                result.success = true;
+                result.flash = {
+                    type : 'success',
+                    message : 'XMeme found',
+                }
+                console.log(result, post);
+                return res.status(200).json(result);
+            }
+            else{
+                const result = {
+                    success: false,
+                    error : `XMeme not found with id ${memeId}`,
+                    flash :{
+                        type : 'danger',
+                        message : 'Could not find XMeme'
+                    }
+                }
+
+                return res.status(200).json(result);
+
+            }
+        }
+    })
 })
 
 module.exports = router;
