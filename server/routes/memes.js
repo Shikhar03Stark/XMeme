@@ -163,6 +163,11 @@ router.post('/', (req, res) => {
 
 })
 
+/**
+ * Method : GET
+ * Route : /memes/:id
+ * Description : Get POST information with :id
+ */
 router.get('/:id', (req, res) => {
     const memeId = req.params.id;
 
@@ -204,6 +209,108 @@ router.get('/:id', (req, res) => {
 
                 return res.status(200).json(result);
 
+            }
+        }
+    })
+});
+
+/**
+ * Method : PATCH
+ * route : /memes/:id
+ * Description : Updates the POST with id
+ */
+router.patch('/:id', (req, res) => {
+    const memeId = req.params.id;
+    const caption = req.body.caption ?? undefined;
+    const url = req.body.url ?? undefined;
+
+    if(caption.length === 0 || url.length === 0){
+        const result = {
+            success : false,
+            error : 'Fields can not be empty',
+            flash : {
+                type : 'danger',
+                message : 'Fields can not be empty after edit',
+            }
+        }
+
+        return res.status(400).json(result);
+    }
+
+    //find post with ID, if found then update
+    Post.findOne({'id':memeId}, (err, post) => {
+        if(err){
+            //DB error
+            //Internal Server Error
+            const result = {
+                success : false,
+                error : "Internal Server Error.",
+                flash : {
+                    type : 'danger',
+                    message : 'Error Connecting to Database',
+                }
+            }
+            return res.status(500).json(result);
+        }
+        else{
+            if(post){
+                //POST exists
+                Post.updateOne({'id':memeId}, {'caption':caption, 'url':url, 'lastEdit':Date.now()}, (err, response) => {
+                    if(err){
+                        //DB Error
+                        //Internal Server Error
+                        const result = {
+                            success : false,
+                            error : "Internal Server Error.",
+                            flash : {
+                                type : 'danger',
+                                message : 'Error Connecting to Database',
+                            }
+                        }
+                        return res.status(500).json(result);
+                    }
+                    else{
+                        if(post){
+                            //return updated post
+                            let aux = post.toObject();
+                            aux.success = true;
+                            aux.flash = {
+                                type : 'success',
+                                message : 'Post Updated Successfully',
+                            }
+
+                            return res.status(200).json(aux);
+                        }
+                        else{
+                            //Not Found
+                            //Post doesn't exist
+                            const result = {
+                                success : false,
+                                error : `XMeme doesn't exist with id ${memeId}`,
+                                flash : {
+                                    type : 'danger',
+                                    message : 'XMeme does not exist',
+                                }
+                            }
+
+                            return res.status(400).json(result);
+                        }
+                    }
+                })
+
+            }
+            else{
+                //Post doesn't exist
+                const result = {
+                    success : false,
+                    error : `XMeme doesn't exist with id ${memeId}`,
+                    flash : {
+                        type : 'danger',
+                        message : 'XMeme does not exist',
+                    }
+                }
+
+                return res.status(400).json(result);
             }
         }
     })

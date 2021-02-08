@@ -4,30 +4,54 @@ import Upvote from './Upvote.js';
 import Edit from './Edit.js';
 
 const Post = (props) => {
-
-    const updatePost = (event) => {
-        event.preventDefault();
-        console.log(`Edit on ${props.post.id}`);
-        //PATCH
-        setEditMode(false);
-    }
-    
     const [editMode, setEditMode] = useState(false);
     const [image, setImage] = useState(props.post.url);
     const [caption, setCaption]  = useState(props.post.caption);
     const [displayTime, setDisplayTime]  = useState(props.post.lastEdit);
     const [fetched, setFetched] = useState(false);
+
+    const updatePost = (event) => {
+        event.preventDefault();
+        console.log(`Edit on ${props.post.id}`);
+        //PATCH
+        const serverUrl = "http://localhost:8081";
+        const body = {
+            url: document.querySelector('input[name="url"]').value,
+            caption : document.querySelector('input[name="caption"]').value,
+        }
+        const option = {
+            method : 'PATCH',
+            headers : {
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify(body)
+        }
+        
+        fetch(`${serverUrl}/memes/${props.post.id}`, option).then(response => response.json())
+        .then(data => {
+            if(data.success){
+                console.log(body);
+                setDisplayTime(data.lastEdit);
+                setCaption(body.caption);
+                document.querySelector('input[name="url"]').value = body.url;
+                document.querySelector('input[name="caption"]').value = body.caption;
+                setImage(body.url);
+                setFetched(false);
+                console.log(caption, image);
+            }
+            setEditMode(false);
+        });
+    }
+    
     console.log(editMode);
     
         useEffect(() => {
             if(!fetched){
                 //convert time to human friendly form
-                console.log(props.post.lastEdit);
-                const date = new Date(props.post.lastEdit);
+                const date = new Date(displayTime);
                 const milli = date.getTime();
                 const currDate = Date.now();
                 const diff = (currDate - milli)/1000;
-                console.log(currDate, milli);
         
                 console.log(diff, diff/60, diff/3600);
                 if(diff < 60){
@@ -75,11 +99,11 @@ const Post = (props) => {
                     <div className="Post-editBody">
                         <span className="Post-editData">
                             Caption : 
-                            <input name="caption" defaultValue={props.post.caption} onChange={()=>{}} className="Post-formCaption" />
+                            <input name="caption" defaultValue={caption} onChange={()=>{}} className="Post-formCaption" />
                         </span>
                         <span className="Post-editData">
                             Image Url : 
-                            <input name="url" defaultValue={props.post.url} onChange={(e)=>{
+                            <input name="url" defaultValue={image} onChange={(e)=>{
                                 const url = document.querySelector('input[name="url"]').value;
                                 setImage(url);
                             }} className="Post-forUrl" />
@@ -97,10 +121,10 @@ const Post = (props) => {
             </> :
             <>
                 <div className="Post-caption">
-                    <span className="Post-captionData">{props.post.caption}</span>
+                    <span className="Post-captionData">{caption}</span>
                 </div>
                 <div className="Post-image">
-                    <img src={props.post.url} className="Post-imageData" alt="Couldn't Load Image" />
+                    <img src={image} className="Post-imageData" alt="Couldn't Load Image" />
                 </div>
             </>}
             <div className="Post-buttons">
