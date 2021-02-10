@@ -128,37 +128,76 @@ router.post('/', (req, res) => {
     }
     //post after data validation
     else{
-        //post xmeme
-        let newPost = new Post();
-        newPost.name = name;
-        newPost.caption = caption;
-        newPost.url = url;
 
-        newPost.save().then(post => {
-            //return id of new Post
-            const result = {
-                id: post.id,
-                success : true,
-                //flash
-                flash : {
-                    type : 'success',
-                    message : 'Meme posted successfully'
+        const checkDuplicateElseCreate = async () => {
+            let count = await Post.find({'name':name, 'caption':caption, 'url':url}).countDocuments((err, count) => {
+                console.log(`count : ${count}`);
+                if(err){
+                    //DB Error
+                    const result = {
+                    success : false,
+                    error : "Internal Server Error",
+                    flash : {
+                        type : 'danger',
+                        message : 'Failed to connect to database',
+                    }
                 }
-            }
-
-            res.status(200).json(result);
-        }).catch(err => {
-            //error occured while saving
-            const result = {
-                success : false,
-                error : "Failed to post XMeme.",
-                flash : {
-                    type : 'danger',
-                    message : 'Server Error Posting XMeme, please try again later',
+                return res.status(500).json(result);
                 }
+                else{
+                    return count;
+                }
+            })
+            count = parseInt(count);
+            if(count > 0){
+                //duplicate entry
+                console.log("Inside duplicate");
+                const result = {
+                    success : false,
+                    error : 'Duplicate Entry',
+                    flash : {
+                        type : 'danger',
+                        message : 'Duplicate Meme Entry'
+                    }
+                }
+    
+                return res.status(409).json(result);
             }
-            return res.status(500).json(result);
-        })
+            else{
+                //post xmeme
+                let newPost = new Post();
+                newPost.name = name;
+                newPost.caption = caption;
+                newPost.url = url;
+                newPost.save().then(post => {
+                    //return id of new Post
+                    const result = {
+                        id: post.id,
+                        success : true,
+                        //flash
+                        flash : {
+                            type : 'success',
+                            message : 'Meme posted successfully'
+                        }
+                    }
+        
+                    res.status(200).json(result);
+                }).catch(err => {
+                    //error occured while saving
+                    const result = {
+                        success : false,
+                        error : "Failed to post XMeme.",
+                        flash : {
+                            type : 'danger',
+                            message : 'Server Error Posting XMeme, please try again later',
+                        }
+                    }
+                    return res.status(500).json(result);
+                })
+            }
+        }
+        
+        checkDuplicateElseCreate();
     }
 
 })

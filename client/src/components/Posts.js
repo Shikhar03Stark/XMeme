@@ -55,7 +55,7 @@ const Posts = (props) => {
         }
 
         console.log(props.query);
-    }, [queried, fetched, props.query, newPost]);
+    }, [queried, fetched, props.query, props.postId]);
     return (
         <div className="Posts-container">
             {posts.map((post, index) => {
