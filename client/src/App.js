@@ -6,12 +6,13 @@ import Form from './components/Form';
 
 function App() {
   const [postId, setPostId] = useState(undefined);
-
+  const [query, setQuery] = useState('');
+  console.log(`${query} from App comp`);
   return (
     <div className="App">
-     <Header/>
+     <Header query={query} setQuery={setQuery} />
      <div className="App-body">
-       <Posts postId={postId} setPostId={setPostId}/>
+       <Posts postId={postId} setPostId={setPostId} setQuery={setQuery} query={query}/>
        <Form setPostId={setPostId}/>
      </div>
     </div>

@@ -90,7 +90,7 @@ const Form = ({setPostId}) => {
                     </div>
                     <div className="Form-preview">
                         <div>
-                            <img src={image} height="320px" alt="Meme Preview"/>
+                            <img src={image} height="320px" width="320px" alt="Meme Preview"/>
                         </div>
                     </div>
                     <button className="Form-button" onClick={postMessage}>POST</button>

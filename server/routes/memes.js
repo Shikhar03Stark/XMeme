@@ -217,7 +217,7 @@ router.get('/:id', (req, res) => {
 /**
  * Method : PATCH
  * route : /memes/:id
- * Description : Updates the POST with id
+ * Description : Updates the POST with :id
  */
 router.patch('/:id', (req, res) => {
     const memeId = req.params.id;
@@ -315,5 +315,70 @@ router.patch('/:id', (req, res) => {
         }
     })
 })
+
+/**
+ * Method : PATCH
+ * route : /memes/upvote/:id
+ * Description : +1 votes of Meme
+ */
+router.patch('/upvote/:id', (req, res) => {
+    const memeId = req.params.id;
+    //update Meme with :id, upvote++
+    Post.updateOne({'id':memeId}, {$inc : {
+        'upvotes' : 1
+    }}, (err, result) => {
+        if(err){
+            //DB Error
+            //Internal Server Error
+            const result = {
+                success : false,
+                error : "Internal Server Error.",
+                flash : {
+                    type : 'danger',
+                    message : 'Error Connecting to Database',
+                }
+            }
+            return res.status(500).json(result);
+
+        }
+        else{
+            //return status 200. Updated
+            return res.sendStatus(200);
+        }
+    })
+})
+
+/**
+ * Method : Patch
+ * route : /memes/downvote/:id
+ * Description : -1 votes of Meme
+ */
+router.patch('/downvote/:id', (req, res) => {
+    const memeId = req.params.id;
+    //update Meme with :id, upvote++
+    Post.updateOne({'id':memeId}, {$inc : {
+        'upvotes' : -1
+    }}, (err, result) => {
+        if(err){
+            //DB Error
+            //Internal Server Error
+            const result = {
+                success : false,
+                error : "Internal Server Error.",
+                flash : {
+                    type : 'danger',
+                    message : 'Error Connecting to Database',
+                }
+            }
+            return res.status(500).json(result);
+
+        }
+        else{
+            //return status 200. Updated
+            return res.sendStatus(200);
+        }
+    })
+})
+
 
 module.exports = router;

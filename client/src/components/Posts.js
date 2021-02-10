@@ -6,10 +6,11 @@ const Posts = (props) => {
     const [newPost, setNewPost] = useState(props.postId);
     const [posts, setPosts] = useState([]);
     const [fetched, setFetched] = useState(false);
+    const [queried, setQueried] = useState(props.query);
 
     useEffect(() => {
         //prepare array if not fetched
-        if(!fetched){
+        if(props.query.length === 0){
             const serverUrl = "http://localhost:8081";
             const options = {
                 method : "GET",
@@ -22,6 +23,20 @@ const Posts = (props) => {
             .then(data => {
                 setPosts(data);
                 setFetched(true);
+            })
+        }
+        if(props.query.length > 0){
+            const serverUrl = "http://localhost:8081";
+            const options = {
+                method : "GET",
+                headers : {
+                    'Content-Type':'application/json',
+                },
+            }
+            fetch(`${serverUrl}/query/?search=${props.query}&limit=100`, options)
+            .then(response => response.json())
+            .then(data => {
+                setPosts(data);
             })
         }
 
@@ -38,7 +53,9 @@ const Posts = (props) => {
                 setPosts([post].concat(auxPosts));
             });
         }
-    });
+
+        console.log(props.query);
+    }, [queried, fetched, props.query, newPost]);
     return (
         <div className="Posts-container">
             {posts.map((post, index) => {

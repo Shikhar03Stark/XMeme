@@ -9,6 +9,7 @@ const Post = (props) => {
     const [caption, setCaption]  = useState(props.post.caption);
     const [displayTime, setDisplayTime]  = useState(props.post.lastEdit);
     const [fetched, setFetched] = useState(false);
+    const [upvotes, setUpvotes] = useState(props.post.upvotes);
 
     const updatePost = (event) => {
         event.preventDefault();
@@ -89,7 +90,7 @@ const Post = (props) => {
                 </div>
                 <div className="Post-votes-enclosure">
                     <div className="Post-votes">
-                        <span className="Post-count">{props.post.upvotes}</span>
+                        <span className="Post-count">{upvotes}</span>
                     </div>
                 </div>
             </div>
@@ -110,7 +111,7 @@ const Post = (props) => {
                         </span>
                         <div className="Post-preview">
                         <div>
-                            <img src={image} height="240px" alt="Meme Preview"/>
+                            <img src={image} height="240px" width="240px" alt="Meme Preview"/>
                         </div>
                         <button className="Post-update" onClick={updatePost} >
                             Update XMeme
@@ -124,11 +125,11 @@ const Post = (props) => {
                     <span className="Post-captionData">{caption}</span>
                 </div>
                 <div className="Post-image">
-                    <img src={image} className="Post-imageData" alt="Couldn't Load Image" />
+                    <img src={image} width="300px" height="300px" className="Post-imageData" alt="Couldn't Load Image" />
                 </div>
             </>}
             <div className="Post-buttons">
-                <Upvote />
+                <Upvote upvotes={upvotes} setUpvotes={setUpvotes} id={props.post.id} />
                 <Edit editMode={editMode} setEditMode={setEditMode} />
             </div>
         </div>

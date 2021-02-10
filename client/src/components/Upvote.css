@@ -16,3 +16,22 @@
     vertical-align: middle;
     color: #809CFF;
 }
+
+.Upvote-container-selected{
+    background-color: #809CFF;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.Upvote-icon-selected{
+    display: table;
+}
+
+.Upvote-iconData-selected{
+    display: table-cell;
+    vertical-align: middle;
+    color: white;
+}

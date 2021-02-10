@@ -39,10 +39,10 @@ app.get('/', (req, res) => {
 });
 
 //Routes
-/**
- * Route : /memes/*
- */
+// /memes/*
 app.use('/memes', require('./routes/memes'));
+// /query/*
+app.use('/query', require('./routes/query'));
 
 
 //404 page middleware exit

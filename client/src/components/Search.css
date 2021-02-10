@@ -2,14 +2,13 @@
 .Search-enclosure{
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
     flex: 2;
     padding: 10px;
     padding-right: 40px;
 }
 
 .Search{
-    color: red;
-    display: block;
+    color: white;
 }
 

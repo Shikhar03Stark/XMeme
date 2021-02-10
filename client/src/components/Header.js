@@ -2,11 +2,11 @@ import './Header.css';
 import Logo from './Logo';
 import Search from './Search';
 
-const Header = () => {
+const Header = (props) => {
     return (
         <div className="Header-enclosure">
                 <Logo />
-                <Search />
+                <Search query={props.query} setQuery={props.setQuery} />
         </div>
     )
 }
