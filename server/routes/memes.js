@@ -148,6 +148,8 @@ router.post('/', (req, res) => {
                     return count;
                 }
             })
+
+            //check if duplicate exists
             count = parseInt(count);
             if(count > 0){
                 //duplicate entry
