@@ -7,7 +7,6 @@ import Form from './components/Form';
 function App() {
   const [postId, setPostId] = useState(undefined);
   const [query, setQuery] = useState('');
-  console.log(`${query} from App comp`);
   return (
     <div className="App">
      <Header query={query} setQuery={setQuery} />

@@ -7,7 +7,6 @@ const Upvote = (props) => {
     const toggleButton = (e) => {
         e.preventDefault();
         setToggle(!toggle);
-        console.log(toggle);
         const serverUrl = 'http://localhost:8081';
         const options = {
             method : 'PATCH',
@@ -23,7 +22,6 @@ const Upvote = (props) => {
             props.setUpvotes(props.upvotes - 1);
             fetch(`${serverUrl}/memes/downvote/${props.id}`, options);
         }
-        console.log(`PATCH Upvote on ${props.id}`);
     }
 
     return (

@@ -53,8 +53,6 @@ const Posts = (props) => {
                 setPosts([post].concat(auxPosts));
             });
         }
-
-        console.log(props.query);
     }, [queried, fetched, props.query, props.postId]);
     return (
         <div className="Posts-container">
