@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import './Post.css';
 import Upvote from './Upvote.js';
 import Edit from './Edit.js';
+import serverUrl from '../serverUrl/serverUrl'
 
 const Post = (props) => {
     const [editMode, setEditMode] = useState(false);
@@ -14,7 +15,6 @@ const Post = (props) => {
     const updatePost = (event) => {
         event.preventDefault();
         //PATCH
-        const serverUrl = "http://localhost:8081";
         const body = {
             url: document.querySelector('input[name="url"]').value,
             caption : document.querySelector('input[name="caption"]').value,

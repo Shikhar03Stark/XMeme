@@ -2,12 +2,13 @@ import React, {useState, useEffect} from 'react';
 import './Upvote.css'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faAngleDoubleUp} from '@fortawesome/free-solid-svg-icons';
+import serverUrl from '../serverUrl/serverUrl'
+
 const Upvote = (props) => {
     const [toggle, setToggle] = useState(false);
     const toggleButton = (e) => {
         e.preventDefault();
         setToggle(!toggle);
-        const serverUrl = 'http://localhost:8081';
         const options = {
             method : 'PATCH',
             headers : {

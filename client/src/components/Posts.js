@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import './Posts.css';
 import Post from './Post';
+import serverUrl from '../serverUrl/serverUrl'
 const Posts = (props) => {
     //newPost undefined if no new post by user
     const [newPost, setNewPost] = useState(props.postId);
@@ -11,7 +12,6 @@ const Posts = (props) => {
     useEffect(() => {
         //prepare array if not fetched
         if(props.query.length === 0){
-            const serverUrl = "http://localhost:8081";
             const options = {
                 method : "GET",
                 headers : {
@@ -26,7 +26,6 @@ const Posts = (props) => {
             })
         }
         if(props.query.length > 0){
-            const serverUrl = "http://localhost:8081";
             const options = {
                 method : "GET",
                 headers : {
@@ -43,7 +42,6 @@ const Posts = (props) => {
         if(props.postId !== undefined){
             //POST was successfull, fetch MEME details
             let post;
-            const serverUrl = "http://localhost:8081";
             fetch(`${serverUrl}/memes/${props.postId}`)
             .then(response => response.json())
             .then(data => {

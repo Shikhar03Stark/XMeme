@@ -1,6 +1,6 @@
 import './Form.css';
 import Message from './Message.js';
-
+import serverUrl from '../serverUrl/serverUrl'
 import React, {useState, useEffect} from 'react';
 
 const Form = ({setPostId}) => {
@@ -31,7 +31,6 @@ const Form = ({setPostId}) => {
         }
 
         //fetch
-        const serverUrl = "http://localhost:8081";
         fetch(`${serverUrl}/memes`, options).then(response => response.json())
         .then(data => {
             //render meesage
