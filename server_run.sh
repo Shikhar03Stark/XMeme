@@ -6,4 +6,4 @@ service mongod status;
 
 #Start node server
 set NODE_ENV=production;
-node server.js
+node server/server.js
