@@ -10,4 +10,5 @@ sudo apt-get update;
 sudo apt-get install -y mongodb-org;
 
 #Install deps
+cd server/
 npm install
