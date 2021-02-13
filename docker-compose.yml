@@ -1,15 +1,15 @@
-version: "3"
+version: '3'
 services: 
-  rest-api:
-    container_name: rest-api
-    image: shikhar03stark/xmeme
+  xmeme-rest:
+    container_name: rest-server
+    image: xmeme
     restart: always
-    build: .
-    ports: 
+    build: ./server
+    ports:
       - "8081:8081"
     links: 
       - mongo
-  
+
   mongo:
     container_name: mongo
     image: mongo
@@ -17,3 +17,4 @@ services:
       - ~/mongo/db:/data/db
     ports:
       - "27017:27017"
+      
